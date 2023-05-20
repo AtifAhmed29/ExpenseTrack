@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { expenseMoudle } from './expense/expense.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://mongo:GpOK0Z3ORUfNBqP9FLnK@containers-us-west-179.railway.app:7008'),expenseMoudle],
+  imports: [MongooseModule.forRoot('mongodb://localhost/nest'),expenseMoudle],
   controllers: [AppController],
   providers: [AppService],
 })

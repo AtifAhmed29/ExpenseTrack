@@ -6,17 +6,18 @@ export type ExpenseDocument=HydratedDocument<Expenses>;
 
 @Schema()
 export class Expenses{
-    @Prop({unique:true})
-    id:string
-    @Prop({required:true})
+    
+    @Prop()
     title:string
-    @Prop({required:true})
+    @Prop()
     ammount:number
-    @Prop({required:true})
-    date:string
-    @Prop({required:true})
+    @Prop()
+    date:Date
+    @Prop()
+    day:string
+    @Prop()
     category:string
-    @Prop({required:true})
+    @Prop()
     notes:string
     
 

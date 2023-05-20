@@ -12,23 +12,30 @@ export class ExpenseService{
 constructor(@InjectModel(Expenses.name) private expenseModel: Model<Expenses>) {}
 
 async findAll(): Promise<Expenses[]> {
-    return this.expenseModel.find().exec();
+    return this.expenseModel.find().select('day ammount');
   }
   
-    getById(id ){
-        return " expenses" +id;
+  async  getById(id ) {
+ 
+    
+      return await this.expenseModel.find({_id:id.id});
     }
-    getByDate(date){
-        return "all "+ date;
+ async   getByDate(date):Promise<Expenses[]> {
+        const transection= await this.expenseModel.find({date:{$gt:date.min,$lt:date.max}}).sort([['date',1]])
+        return transection;
     }
+ async   getByDateExpense(date):Promise<Expenses[]> {
+        return await this.expenseModel.find({date:{$gt:date.min,$lt:date.max}}).select('category ammount')
+    }
+
     async create(data): Promise<Expenses> {
         const createdExpense = new this.expenseModel(data);
         return createdExpense.save();
       }
-    editExpense(id){
-        return "edit "+ id;
+   async editExpense(id,data){
+        return await this.expenseModel.updateOne({_id:id.id},{$set:{category:data.category, title:data.title,ammount:data.ammount}});
     }
-    deleteExpense(id){
-        return "delete "+ id;
+  async  deleteExpense(id){
+        return  await this.expenseModel.deleteOne({_id:id.id});
     }
 }

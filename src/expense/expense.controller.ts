@@ -14,13 +14,17 @@ export class ExpenseController {
     getByDate( @Body() data): any{
         return this.expenseService.getByDate(data);
     }
+    @Post('/expensegraph')
+    getByDateExpense( @Body() data): any{
+        return this.expenseService.getByDateExpense(data);
+    }
     @Get('/byid/:id')
     getById(@Param() id): any{
         return this.expenseService.getById(id);
     }
     @Put('/edit/:id')
-    editExpense(@Param() id): any{
-        return this.expenseService.editExpense(id);
+    editExpense(@Param() id, @Body() data): any{
+        return this.expenseService.editExpense(id,data);
     }
     @Delete('/delete/:id')
     deleteExpense(@Param() id): any{
