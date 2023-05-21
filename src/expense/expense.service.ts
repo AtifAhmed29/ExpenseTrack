@@ -12,7 +12,7 @@ export class ExpenseService{
 constructor(@InjectModel(Expenses.name) private expenseModel: Model<Expenses>) {}
 
 async findAll(): Promise<Expenses[]> {
-    return this.expenseModel.find().select('day ammount');
+    return this.expenseModel.find().select('day ammount date');
   }
   
   async  getById(id ) {
@@ -21,8 +21,8 @@ async findAll(): Promise<Expenses[]> {
       return await this.expenseModel.find({_id:id.id});
     }
  async   getByDate(date):Promise<Expenses[]> {
-        const transection= await this.expenseModel.find({date:{$gt:date.min,$lt:date.max}}).sort([['date',1]])
-        return transection;
+        const transection= await this.expenseModel.find({date:{$gte:date.min,$lte:date.max}}).sort([['date',1]])
+        return transection
     }
  async   getByDateExpense(date):Promise<Expenses[]> {
         return await this.expenseModel.find({date:{$gt:date.min,$lt:date.max}}).select('category ammount')
